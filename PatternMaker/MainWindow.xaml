@@ -19,9 +19,11 @@
                 <Image Panel.ZIndex="1" Name="BGImage" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,80,0" Opacity="0.5"/>
             </Grid>
         </ScrollViewer>
-        <Button Content="Browse..." HorizontalAlignment="Right" Margin="0,69,10,0" VerticalAlignment="Top" Width="65" Click="Browse_Click"/>
-        <xctk:ColorPicker Name="ColourPicker" SelectedColor="Black" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,94,10,257" Height="28" Width="42" />
-        <Slider Name="Zoom"  HorizontalAlignment="Right" Margin="0,130,10,0" VerticalAlignment="Top" Height="150" Width="28" Orientation="Vertical" Maximum="300" Minimum="1" ValueChanged="Zoom_Changed" TickPlacement="TopLeft" TickFrequency="20" Value="100"/>
-        <Button Content="Export..." HorizontalAlignment="Right" Margin="0,285,10,0" VerticalAlignment="Top" Width="65" Click="Save_Click"/>
+        <Button Content="Browse..." HorizontalAlignment="Right" Margin="0,262,10,0" VerticalAlignment="Top" Width="65" Click="Browse_Click"/>
+        <xctk:ColorPicker Name="ColourPicker" SelectedColor="Black" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,72,10,0" Height="28" Width="42" />
+        <Slider Name="Zoom"  HorizontalAlignment="Right" Margin="0,107,10,0" VerticalAlignment="Top" Height="150" Width="28" Orientation="Vertical" Maximum="300" Minimum="1" ValueChanged="Zoom_Changed" TickPlacement="TopLeft" TickFrequency="20" Value="{Binding Zoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Export..." HorizontalAlignment="Right" Margin="0,287,10,0" VerticalAlignment="Top" Width="65" Click="Export_Click"/>
+        <Button Content="Save..." HorizontalAlignment="Right" Margin="0,312,10,0" VerticalAlignment="Top" Width="65" Click="Save_Click"/>
+        <Button Content="Load..." HorizontalAlignment="Right" Margin="0,337,10,0" VerticalAlignment="Top" Width="65" Click="Load_Click"/>
     </Grid>
 </Window>

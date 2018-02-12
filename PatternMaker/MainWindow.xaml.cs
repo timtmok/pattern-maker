@@ -14,15 +14,10 @@ namespace PatternMaker
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int SQUARE_SIZE = 15;
-        private const double SQUARE_OPACITY = 0.6;
-        private const double SQUARE_THICKNESS = 0.2;
-        private SolidColorBrush DEFAULT_FILL = Brushes.White;
-
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            DataContext = new ViewModel(PatternCanvas);
             UpdateGrid();
         }
 
@@ -43,32 +38,11 @@ namespace PatternMaker
 
         private void UpdateGrid()
         {
-            ViewModel model = GetModel();
+            var model = GetModel();
             if (model == null)
                 return;
-            
-            PatternCanvas.Children.Clear();
 
-            for (int iRow = 0; iRow < model.Row; iRow++)
-            {
-                for (int iCol = 0; iCol < model.Col; iCol++)
-                {
-                    var rect = new Rectangle()
-                    {
-                        Stroke = Brushes.Black,
-                        Fill = DEFAULT_FILL,
-                        StrokeThickness = SQUARE_THICKNESS,
-                        Width = SQUARE_SIZE,
-                        Height = SQUARE_SIZE,
-                        Opacity = SQUARE_OPACITY
-                    };
-                    rect.MouseLeftButtonUp += OnRectClick;
-                    rect.MouseRightButtonUp += OnRectRightClick;
-                    Canvas.SetBottom(rect, iRow * SQUARE_SIZE);
-                    Canvas.SetRight(rect, iCol * SQUARE_SIZE);
-                    PatternCanvas.Children.Add(rect);
-                }
-            }
+            model.InitializePattern(OnRectClick, OnRectRightClick);
 
             ScrollView.ScrollToEnd();
             ScrollView.ScrollToRightEnd();
@@ -93,7 +67,7 @@ namespace PatternMaker
             var rect = sender as Rectangle;
             if (rect == null)
                 return;
-            rect.Fill = DEFAULT_FILL;
+            rect.Fill = PatternModel.DEFAULT_FILL;
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
@@ -123,7 +97,7 @@ namespace PatternMaker
             SetImage();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void Export_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new SaveFileDialog();
             dialog.AddExtension = true;
@@ -143,12 +117,47 @@ namespace PatternMaker
             var renderToBitmap = new RenderTargetBitmap((int) actualWidth, (int)actualHeight, 96, 96, PixelFormats.Default);
             renderToBitmap.Render(PatternCanvas);
             var bitmapFrame = BitmapFrame.Create(renderToBitmap);
-            BitmapEncoder pngEncoder = new BmpBitmapEncoder();
+            var pngEncoder = new PngBitmapEncoder();
             pngEncoder.Frames.Add(bitmapFrame);
             using (var outFile = System.IO.File.OpenWrite(filename))
             {
                 pngEncoder.Save(outFile);
             }
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.AddExtension = true;
+            dialog.DefaultExt = ".ptn";
+            var result = dialog.ShowDialog();
+            if (result == false)
+                return;
+
+            var filename = dialog.FileName;
+            var model = GetModel();
+            if (model == null)
+                return;
+            model.Save(filename);
+        }
+
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Pattern | *.ptn";
+            var result = dialog.ShowDialog();
+            if (result == false)
+                return;
+
+            var filename = dialog.FileName;
+            var model = GetModel();
+            if (model == null)
+                return;
+            model.Load(filename);
+
+            RowInput.Text = model.Row.ToString();
+            ColInput.Text = model.Col.ToString();
+            Zoom.Value = model.Zoom;
         }
     }
 }
