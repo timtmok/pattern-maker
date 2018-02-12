@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
+﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -90,22 +88,19 @@ namespace PatternMaker
 
         internal void Save(string filename)
         {
-            _patternModel.Save(filename);
+            var serializer = new PatternSerializer();
+            serializer.Serialize(_patternModel, filename);
         }
 
         internal void Load(string filename)
         {
             var patternConverter = new PatternConverter();
             var brushConverter = new BrushConverter();
+            var serializer = new PatternSerializer();
 
-            using (var file = File.OpenText(filename))
-            {
-                var serializer = new JsonSerializer();
-                var newModel = (PatternModel)serializer.Deserialize(file, typeof(PatternModel));
-                _patternModel = newModel;
-            }
-
+            _patternModel = serializer.Deserialize(filename);
             _patternCanvas.Children.Clear();
+
             for (int iRow = 0; iRow < _patternModel.Row; iRow++)
             {
                 for (int iCol = 0; iCol < _patternModel.Col; iCol++)

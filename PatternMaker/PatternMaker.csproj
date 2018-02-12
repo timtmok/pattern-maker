@@ -80,6 +80,7 @@
     <Compile Include="Dot.cs" />
     <Compile Include="PatternModel.cs" />
     <Compile Include="PatternConverter.cs" />
+    <Compile Include="PatternSerializer.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
