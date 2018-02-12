@@ -17,7 +17,7 @@ namespace PatternMaker
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel(PatternCanvas);
+            DataContext = new ViewModel(PatternCanvas, OnRectClick, OnRectRightClick);
             UpdateGrid();
         }
 
@@ -42,7 +42,7 @@ namespace PatternMaker
             if (model == null)
                 return;
 
-            model.InitializePattern(OnRectClick, OnRectRightClick);
+            model.InitializePattern();
 
             ScrollView.ScrollToEnd();
             ScrollView.ScrollToRightEnd();
@@ -58,6 +58,11 @@ namespace PatternMaker
             var rect = sender as Rectangle;
             if (rect == null)
                 return;
+
+            var model = GetModel();
+            if (model == null)
+                return;
+
             Color selectedColour = ColourPicker.SelectedColor.GetValueOrDefault(Colors.Black);
             rect.Fill = new SolidColorBrush(selectedColour);
         }
@@ -67,7 +72,7 @@ namespace PatternMaker
             var rect = sender as Rectangle;
             if (rect == null)
                 return;
-            rect.Fill = PatternModel.DEFAULT_FILL;
+            rect.Fill = ViewModel.DEFAULT_FILL;
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)

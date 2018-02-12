@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace PatternMaker
 {
@@ -20,23 +18,22 @@ namespace PatternMaker
 
             patternModel.Row = jObject.GetValue("Row").Value<int>();
             patternModel.Col = jObject.GetValue("Col").Value<int>();
-            patternModel.Pattern = new Rectangle[patternModel.Row, patternModel.Col];
             patternModel.Zoom = jObject.GetValue("Zoom").Value<int>();
+            patternModel.DotPattern = new Dot[patternModel.Row, patternModel.Col];
 
             var jArray = jObject.GetValue("Pattern").Value<JArray>();
-            var brushConverter = new BrushConverter();
 
             foreach (JObject item in jArray.Children())
             {
-                var rect = PatternModel.CreateRectangle();
                 var row = item.GetValue("Row").Value<int>();
                 var col = item.GetValue("Col").Value<int>();
+                var colour = item.GetValue("Fill").Value<string>();
+                var dot = new Dot(colour);
 
                 if (row < 0 || row >= patternModel.Row || col < 0 || col >= patternModel.Col)
                     continue;
 
-                rect.Fill = (Brush) brushConverter.ConvertFromString(item.GetValue("Fill").Value<string>());
-                patternModel.Pattern[row, col] = rect;
+                patternModel.DotPattern[row, col] = dot;
             }
 
             return patternModel;
@@ -48,11 +45,12 @@ namespace PatternMaker
             if (patternModel == null)
                 return;
 
-            var brushConverter = new BrushConverter();
-            var pattern = new JObject();
-            pattern["Row"] = patternModel.Row;
-            pattern["Col"] = patternModel.Col;
-            pattern["Zoom"] = patternModel.Zoom;
+            var pattern = new JObject
+            {
+                ["Row"] = patternModel.Row,
+                ["Col"] = patternModel.Col,
+                ["Zoom"] = patternModel.Zoom
+            };
 
             var rects = new JArray();
             for (int iRow = 0; iRow < patternModel.Row; iRow++)
@@ -62,7 +60,7 @@ namespace PatternMaker
                     var rect = new JObject();
                     rect["Row"] = iRow;
                     rect["Col"] = iCol;
-                    rect["Fill"] = brushConverter.ConvertToString(patternModel.Pattern[iRow, iCol].Fill);
+                    rect["Fill"] = patternModel.DotPattern[iRow, iCol].Colour;
                     rects.Add(rect);
                 }
             }
