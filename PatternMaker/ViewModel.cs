@@ -12,6 +12,7 @@ namespace PatternMaker
         public static readonly int SQUARE_SIZE = 15;
         public static readonly double SQUARE_OPACITY = 0.6;
         public static readonly double SQUARE_THICKNESS = 0.2;
+        public static readonly double SQUARE_THICKNESS_SPECIAL = 0.4;
         public static readonly SolidColorBrush DEFAULT_FILL = Brushes.White;
 
         private readonly Canvas _patternCanvas;
@@ -74,8 +75,12 @@ namespace PatternMaker
                 for (int iCol = 0; iCol < Col; iCol++)
                 {
                     var rect = CreateRectangle();
-                    rect.MouseLeftButtonUp += ClickEvent(iRow, iCol);
-                    rect.MouseRightButtonUp += RightClickEvent(iRow, iCol);
+                    InitializeMouseEvents(rect, iRow, iCol);
+
+                    if ((iCol + 1) % 5 == 0 || (iRow + 1) % 5 == 0)
+                    {
+                        rect.StrokeThickness = SQUARE_THICKNESS_SPECIAL;
+                    }
 
                     Canvas.SetBottom(rect, iRow * SQUARE_SIZE);
                     Canvas.SetRight(rect, iCol * SQUARE_SIZE);
@@ -84,6 +89,13 @@ namespace PatternMaker
                     _patternCanvas.Children.Add(rect);
                 }
             }
+        }
+
+        private void InitializeMouseEvents(Rectangle rect, int row, int col)
+        {
+            rect.MouseLeftButtonUp += ClickEvent(row, col);
+            rect.MouseRightButtonUp += RightClickEvent(row, col);
+            rect.MouseMove += MouseEvent(row, col);
         }
 
         internal void Save(string filename)
@@ -106,6 +118,10 @@ namespace PatternMaker
                 for (int iCol = 0; iCol < _patternModel.Col; iCol++)
                 {
                     var rect = CreateRectangle();
+                    if ((iCol + 1) % 5 == 0 || (iRow + 1) % 5 == 0)
+                    {
+                        rect.StrokeThickness = SQUARE_THICKNESS_SPECIAL;
+                    }
                     try
                     {
                         rect.Fill = (Brush)brushConverter.ConvertFromString(_patternModel.DotPattern[iRow, iCol].Colour);
@@ -114,8 +130,7 @@ namespace PatternMaker
                     {
                         rect.Fill = DEFAULT_FILL;
                     }
-                    rect.MouseLeftButtonUp += ClickEvent(iRow, iCol);
-                    rect.MouseRightButtonUp += RightClickEvent(iRow, iCol);
+                    InitializeMouseEvents(rect, iRow, iCol);
 
                     Canvas.SetBottom(rect, iRow * SQUARE_SIZE);
                     Canvas.SetRight(rect, iCol * SQUARE_SIZE);
@@ -123,6 +138,27 @@ namespace PatternMaker
                     _patternCanvas.Children.Add(rect);
                 }
             }
+        }
+
+        private MouseEventHandler MouseEvent(int row, int col)
+        {
+            return (sender, args) =>
+            {
+                var clicked = sender as Rectangle;
+                if (clicked == null)
+                    return;
+
+                if (args.LeftButton == MouseButtonState.Pressed)
+                {
+                    _clickEvent(sender, new MouseButtonEventArgs(args.MouseDevice, args.Timestamp, MouseButton.Left));
+                    _patternModel.DotPattern[row, col].Colour = clicked.Fill.ToString();
+                }
+                else if (args.RightButton == MouseButtonState.Pressed)
+                {
+                    _rightClickEvent(sender, new MouseButtonEventArgs(args.MouseDevice, args.Timestamp, MouseButton.Right));
+                    _patternModel.DotPattern[row, col].Colour = clicked.Fill.ToString();
+                }
+            };
         }
 
         private MouseButtonEventHandler RightClickEvent(int row, int col)
