@@ -87,12 +87,7 @@ namespace PatternMaker
             }
         }
 
-        private void Col_Updated(object sender, TextChangedEventArgs e)
-        {
-            UpdateGrid();
-        }
-
-        private void Row_Updated(object sender, TextChangedEventArgs e)
+        private void Resize_Click(object sender, RoutedEventArgs e)
         {
             UpdateGrid();
         }

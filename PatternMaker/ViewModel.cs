@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace PatternMaker
 {
-    internal class ViewModel
+    public class ViewModel
     {
         public static readonly int SQUARE_SIZE = 15;
         public static readonly double SQUARE_OPACITY = 0.6;

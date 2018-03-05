@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternMaker", "PatternMaker\PatternMaker.csproj", "{A20BA45B-6F03-4156-A129-C10942C8D73D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternMakerTest", "PatternMakerTest\PatternMakerTest.csproj", "{B748796F-158C-414C-9B34-E21A9C1A453E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{A20BA45B-6F03-4156-A129-C10942C8D73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A20BA45B-6F03-4156-A129-C10942C8D73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A20BA45B-6F03-4156-A129-C10942C8D73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B748796F-158C-414C-9B34-E21A9C1A453E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B748796F-158C-414C-9B34-E21A9C1A453E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B748796F-158C-414C-9B34-E21A9C1A453E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B748796F-158C-414C-9B34-E21A9C1A453E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B70AACDE-3956-40ED-845D-498A5D49EE2D}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,130 @@
+{
+    "Row": 5,
+    "Col": 5,
+    "Zoom": 200,
+    "Pattern": [{
+        "Row": 0,
+        "Col": 0,
+        "Fill": "#FF00FF00"
+    },
+    {
+        "Row": 0,
+        "Col": 1,
+        "Fill": "#FF00FF00"
+    },
+    {
+        "Row": 0,
+        "Col": 2,
+        "Fill": "#FF00FF00"
+    },
+    {
+        "Row": 0,
+        "Col": 3,
+        "Fill": "#FF00FF00"
+    },
+    {
+        "Row": 0,
+        "Col": 4,
+        "Fill": "#FF00FF00"
+    },
+    {
+        "Row": 1,
+        "Col": 0,
+        "Fill": "#FF0000FF"
+    },
+    {
+        "Row": 1,
+        "Col": 1,
+        "Fill": "#FF0000FF"
+    },
+    {
+        "Row": 1,
+        "Col": 2,
+        "Fill": "#FF0000FF"
+    },
+    {
+        "Row": 1,
+        "Col": 3,
+        "Fill": "#FF0000FF"
+    },
+    {
+        "Row": 1,
+        "Col": 4,
+        "Fill": "#FF0000FF"
+    },
+    {
+        "Row": 2,
+        "Col": 0,
+        "Fill": "#FF00FFFF"
+    },
+    {
+        "Row": 2,
+        "Col": 1,
+        "Fill": "#FF00FFFF"
+    },
+    {
+        "Row": 2,
+        "Col": 2,
+        "Fill": "#FF00FFFF"
+    },
+    {
+        "Row": 2,
+        "Col": 3,
+        "Fill": "#FF00FFFF"
+    },
+    {
+        "Row": 2,
+        "Col": 4,
+        "Fill": "#FF00FFFF"
+    },
+    {
+        "Row": 3,
+        "Col": 0,
+        "Fill": "#FFFF0000"
+    },
+    {
+        "Row": 3,
+        "Col": 1,
+        "Fill": "#FFFF0000"
+    },
+    {
+        "Row": 3,
+        "Col": 2,
+        "Fill": "#FFFF0000"
+    },
+    {
+        "Row": 3,
+        "Col": 3,
+        "Fill": "#FFFF0000"
+    },
+    {
+        "Row": 3,
+        "Col": 4,
+        "Fill": "#FFFF0000"
+    },
+    {
+        "Row": 4,
+        "Col": 0,
+        "Fill": "#FFFFFF00"
+    },
+    {
+        "Row": 4,
+        "Col": 1,
+        "Fill": "#FFFFFF00"
+    },
+    {
+        "Row": 4,
+        "Col": 2,
+        "Fill": "#FFFFFF00"
+    },
+    {
+        "Row": 4,
+        "Col": 3,
+        "Fill": "#FFFFFF00"
+    },
+    {
+        "Row": 4,
+        "Col": 4,
+        "Fill": "#FFFFFF00"
+    }]
+}

@@ -1,0 +1,15 @@
+{
+    "Row": 1,
+    "Col": 2,
+    "Zoom": 100,
+    "Pattern": [{
+        "Row": 0,
+        "Col": 0,
+        "Fill": "#FF00FF00"
+    },
+    {
+        "Row": 0,
+        "Col": 1,
+        "Fill": "#FF0000FF"
+    }]
+}
